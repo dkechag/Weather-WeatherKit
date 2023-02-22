@@ -124,6 +124,8 @@ Fetches datasets (weather report, forecast, alert...) for the requested location
 Returns a string containing the JSON data, except in array context, in which case,
 as a convenience, it will use L<JSON> to decode it directly to a Perl hash.
 
+Requires L<LWP::UserAgent>, unless the C<curl> option was set.
+
 If the request is not successful, it will C<die> throwing the C<< HTTP::Response->status_line >>.
 
 =over 4

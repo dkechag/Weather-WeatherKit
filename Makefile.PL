@@ -16,6 +16,7 @@ my %WriteMakefileArgs = (
     TEST_REQUIRES => {
         'Test2::V0'               => '0',
         'Test2::Tools::Exception' => '0',
+        'LWP::UserAgent'          => '0',
         'JSON'                    => '0'
     },
     PREREQ_PM => {
