@@ -14,7 +14,7 @@ To install this module, run the following commands:
 SUPPORT AND DOCUMENTATION
 
 CPAN:
-    https://metacpan.org/pod/Image::PHash
+    https://metacpan.org/pod/Weather::WeatherKit
 
 After installing, you can find documentation for this module with the
 perldoc command.

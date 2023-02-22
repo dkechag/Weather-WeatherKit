@@ -26,6 +26,7 @@ jobs:
         with:
             submodules: recursive
       - run: perl -V
+      - run: cpanm --notest LWP::UserAgent
       - run: cpanm --notest --installdeps --verbose .
       - run: perl Makefile.PL
       - run: make
