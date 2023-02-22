@@ -13,22 +13,16 @@ To install this module, run the following commands:
 
 SUPPORT AND DOCUMENTATION
 
+CPAN:
+    https://metacpan.org/pod/Image::PHash
+
 After installing, you can find documentation for this module with the
 perldoc command.
 
     perldoc Weather::WeatherKit
 
-You can also look for information at:
-
-    RT, CPAN's request tracker (report bugs here)
-        https://rt.cpan.org/NoAuth/Bugs.html?Dist=Weather-WeatherKit
-
-    CPAN Ratings
-        https://cpanratings.perl.org/d/Weather-WeatherKit
-
-    Search CPAN
-        https://metacpan.org/release/Weather-WeatherKit
-
+Source code and issues on GitHub:
+    https://github.com/dkechag/Weather-WeatherKit
 
 LICENSE AND COPYRIGHT
 

@@ -17,23 +17,23 @@ Version 0.01
 
 =cut
 
-our $VERSION = '0.0_1';
+our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
     use Weather::WeatherKit;
 
     my $wk = Weather::WeatherKit->new(
-        team_id    => $apple_team_id,          # Your 10-char Developer Team Id
-        service_id => $weatherkit_service_id,  # The WeatherKit Service Id
-        key_id     => $key_id,                 # ID of the WeatherKit developer key
+        team_id    => $apple_team_id,          # Apple Developer Team Id
+        service_id => $weatherkit_service_id,  # WeatherKit Service Id
+        key_id     => $key_id,                 # WeatherKit developer key ID
         key        => $private_key             # Encrypted private key (PEM)
     );
     
     my $report = $wk->get(
         lat      => $lat,      # Latitude
         lon      => $lon,      # Longitude
-        dataSets => $datasets  # e.g. currentWeather - comma-separated list
+        dataSets => $datasets  # e.g. currentWeather (comma-separated list)
     );
 
 =head1 DESCRIPTION
@@ -41,8 +41,8 @@ our $VERSION = '0.0_1';
 Weather::WeatherKit provides basic access to the Apple WeatherKit REST API (v1).
 WeatherKit replaces the Dark Sky API and requires an Apple developer subscription.
 
-Pease see API documentation: L<https://developer.apple.com/documentation/weatherkitrestapi>
-for dataSets and usage options as well as the required attribution.
+Pease see the L<official API documentation|https://developer.apple.com/documentation/weatherkitrestapi>
+for datasets and usage options as well as the L<required attribution|https://developer.apple.com/weatherkit/get-started/#attribution-requirements>.
 
 It was made to serve the apps L<Xasteria|https://astro.ecuadors.net/xasteria/> and
 L<Polar Scope Align|https://astro.ecuadors.net/polar-scope-align/>, but if your service
@@ -138,7 +138,7 @@ Some data sets might not be available for all locations. Will return empty resul
 if parameter is missing.
 
 =item * C<%args> : See the official API documentation for the supported weather API
-query parameters which you can can pass as key/value pairs.
+query parameters which you can pass as key/value pairs.
 
 =back
 
@@ -321,8 +321,8 @@ Dimitrios Kechagias, C<< <dkechag at cpan.org> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests either on GitHub, or on RT (via the email
-C<bug-weather-weatherkit at rt.cpan.org> or web interface at L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Weather-WeatherKit>).
+Please report any bugs or feature requests either on L<GitHub|https://github.com/dkechag/Weather-WeatherKit> (preferred), or on RT (via the email
+C<bug-weather-weatherkit at rt.cpan.org> or L<web interface|https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Weather-WeatherKit>).
 
 I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 

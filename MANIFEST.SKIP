@@ -8,6 +8,7 @@ _build/
 cover_db/
 blib/
 .git/
+.github
 inc/
 .lwpcookies
 .last_cover_stats
