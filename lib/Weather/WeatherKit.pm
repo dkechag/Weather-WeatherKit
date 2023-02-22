@@ -13,11 +13,11 @@ Weather::WeatherKit - Apple WeatherKit REST API client
 
 =head1 VERSION
 
-Version 0.01
+Version 0.1
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.1';
 
 =head1 SYNOPSIS
 
