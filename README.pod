@@ -2,10 +2,6 @@
 
 Weather::WeatherKit - Apple WeatherKit REST API client
 
-=head1 VERSION
-
-Version 0.11
-
 =head1 SYNOPSIS
 
     use Weather::WeatherKit;
@@ -17,11 +13,30 @@ Version 0.11
         key        => $private_key             # Encrypted private key (PEM)
     );
     
+    # Request current weather:
     my $report = $wk->get(
         lat      => $lat,      # Latitude
         lon      => $lon,      # Longitude
-        dataSets => $datasets  # e.g. currentWeather (comma-separated list)
+        dataSets => 'currentWeather'
     );
+
+    # Request forecast for 8 days, use Weather::API::Base helper functions
+    # for ISO dates, and get full HTTP::Response object to check for success
+    use Weather::API::Base qw(:all);
+
+    my $response = $wk->get_response(
+        lat         => $lat,
+        lon         => $lon,
+        dataSets    => 'forecastHourly',
+        hourlyStart => ts_to_iso_date(time()),
+        hourlyEnd   => ts_to_iso_date(time()+8*24*3600)
+    );
+
+    if ($response->is_success) {
+        my $json = $response->decoded_content;
+    } else {
+        die $response->status_line;
+    }
 
 =head1 DESCRIPTION
 
@@ -71,7 +86,7 @@ which you first need to convert to the PEM format. On a Mac you can convert it s
    openssl pkcs8 -nocrypt -in AuthKey_<key_id>.p8 -out AuthKey_<key_id>.pem
 
 =item * C<key> : Instead of the C<.pem> file, you can pass its contents directly
-as a string.
+as a string. If both are provided C<key> takes precedence over C<key_file>.
 
 =back
 
@@ -87,7 +102,8 @@ Optional parameters:
 
 =item * C<curl> : If true, fall back to using the C<curl> command line program.
 This is useful if you have issues adding http support to L<LWP::UserAgent>, which
-is the default method for the WeatherKit requests.
+is the default method for the WeatherKit requests. It assumes the C<curl> program
+is installed in C<$PATH>.
 
 =item * C<expiration> : Token expiration time in seconds. Tokens are cached until
 there are less than 10 minutes left to expiration. Default: C<7200>.
@@ -165,6 +181,49 @@ will force the creation of a new token. Default is C<time()+7200> (or what you
 specified in the constructor).
 
 =back
+
+=head1 HELPER FUNCTIONS (from Weather::API::Base)
+
+The parent class L<Weather::API::Base> contains some useful functions e.g.:
+
+  use Weather::API::Base qw(:all);
+
+  # Get time in ISO (YYYY-MM-DDTHH:mm:ss) format
+  my $datetime = ts_to_iso_date(time());
+
+  # Convert 30 degrees Celsius to Fahrenheit
+  my $result = convert_units('C', 'F', 30);
+
+See the doc for that module for more details.
+
+=head1 KNOWN ISSUES
+
+=head2 400 errors on 10 day forecast
+
+Although WeatherKit is supposed to provide 10 days of forecast, at some point users
+started getting C<400> errors when requesting (e.g. with C<hourlyEnd>) more than 8 or 9
+days of forecast. If you encounter this issue, limit your forecast request to 9 or
+8 days in the future.
+
+=head1 OTHER PERL WEATHER MODULES
+
+Some Perl modules for current weather and forecasts from other sources:
+
+=head2 L<Weather::OWM>
+
+OpenWeatherMap uses various weather sources combined with their own ML and offers
+a couple of free endpoints (the v2.5 current weather and 5d/3h forecast) with generous
+request limits. Their newer One Call 3.0 API also offers some free usage (1000 calls/day)
+and the cost is per call above that. If you want access to history APIs, extended
+hourly forecasts etc, there are monthly subscriptions. L<Weather::OWM> is from the
+same author as this module and similar in use.
+
+=head2 L<Weather::Astro7Timer>
+
+The 7Timer! weather forecast is completely free and would be of extra interest if
+you are interested in astronomy/stargazing. It uses the standard NOAA forecast,
+but also calculates astronomical seeing and transparency. It can be accessed with
+L<Weather::Astro7Timer>, which is another module similar to this (same author).
 
 =head1 AUTHOR
 
